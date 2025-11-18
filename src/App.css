@@ -1,0 +1,61 @@
+/* src/App.css (append these lines) */
+:root {
+  --sidebar-width: 220px;
+  --nav-bg: #0a2342;
+  --accent: #1277ff;
+}
+
+.app-root {
+  display: flex;
+  min-height: 100vh;
+  background: #ffffff;
+}
+
+/* main content area (leaves room for sidebar) */
+.main-content {
+  margin-left: var(--sidebar-width);
+  width: calc(100% - var(--sidebar-width));
+  min-height: 100vh;
+  box-sizing: border-box;
+}
+.main-content {
+  margin-left: 240px;    /* must match sidebar width */
+  padding: 20px;
+}
+
+
+/* page body center */
+.page-body {
+  padding: 40px 28px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Feedback modal overlay (used by App.js) */
+.feedback-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(2,6,23,0.45);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  z-index:1600;
+}
+.feedback-modal {
+  width: min(720px, 94%);
+  background: #fff;
+  border-radius: 12px;
+  padding: 22px;
+  box-shadow: 0 20px 60px rgba(2,6,23,0.28);
+  position: relative;
+}
+.feedback-close {
+  position:absolute;
+  right:12px;
+  top:12px;
+  background:transparent;
+  border:none;
+  font-size:18px;
+  cursor:pointer;
+}
+

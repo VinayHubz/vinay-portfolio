@@ -1,0 +1,195 @@
+/* Full page module — remove white borders */
+:root {
+  --treasure-gold: #ffd86b;
+  --treasure-gold-2: #f2b400;
+}
+
+/* ensure page has no margins (put also in global index.css if needed) */
+html, body, #root {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+
+/* module root uses the parchment background provided */
+.career-root{
+  width: 100vw;
+  min-height: 100vh;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  box-sizing: border-box;
+  color: #3b2a10;
+  padding: 28px 36px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* header */
+.career-header {
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap: 12px;
+}
+.career-header h1 {
+  margin:0;
+  font-size: 34px;
+  color: #482e0a;
+  text-shadow: 0 2px 6px rgba(0,0,0,0.12);
+}
+.career-header .controls button {
+  padding: 8px 12px;
+  background: linear-gradient(180deg,#f1c95b,#d8a81f);
+  border: none;
+  border-radius: 8px;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 6px 18px rgba(216,168,50,0.18);
+}
+
+/* map area wrapper */
+.map-area {
+  position: relative;
+  width: 100%;
+  height: calc(100vh - 150px);
+  max-height: 780px;
+  border-radius: 10px;
+  overflow: visible;
+}
+
+/* SVG path sits full area; make it absolute so offset-path can reference the same path */
+.map-svg {
+  position: absolute;
+  left: 0; top: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  overflow: visible;
+}
+
+/* Milestones (initial placement tuned to viewBox path used) */
+.milestone {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  width: 120px;
+  pointer-events: none; /* click through: explorer controls */
+}
+.milestone img {
+  width: 78px;
+  height: 78px;
+  object-fit: contain;
+  transition: transform .28s ease, filter .28s ease;
+  border-radius: 12px;
+  background: rgba(255,255,255,0.06);
+  padding: 8px;
+}
+
+/* labels */
+.milestone-label {
+  margin-top: 8px;
+  font-weight: 700;
+  color: #432e12;
+  font-size: 14px;
+  text-shadow: 0 1px 0 rgba(255,255,255,0.06);
+}
+
+/* positions (percent across container). tune these to align perfectly */
+.milestone-grad   { left: 8%;  top: 78%; }
+.milestone-sql    { left: 24%; top: 64%; }
+.milestone-python { left: 46%; top: 50%; }
+.milestone-dataeng{ left: 67%; top: 60%; }
+.milestone-senior { left: 88%; top: 30%; }
+
+/* Glow classes applied by timeouts */
+.milestone.glow img {
+  transform: scale(1.14);
+  filter: drop-shadow(0 0 14px var(--treasure-gold)) drop-shadow(0 0 28px var(--treasure-gold-2));
+}
+.milestone.glow-strong img {
+  transform: scale(1.22);
+  filter: drop-shadow(0 0 22px var(--treasure-gold)) drop-shadow(0 0 42px var(--treasure-gold-2));
+}
+
+/* Explorer container (invisible anchor) */
+.explorer {
+  position: absolute;
+  width: 100px;
+  height: 96px;
+  left: 110px;  /* initial anchored position; motion-path will override */
+  top: 380px;
+  pointer-events: none;
+  transform-origin: center center;
+}
+
+/* sprite area: background is the sprite sheet; frames across horizontally */
+.explorer-sprite {
+  width: 100px;
+  height: 96px;
+  background-size: auto 100%; /* width will be spriteWidth*frames, using background-position steps in keyframes */
+  background-repeat: no-repeat;
+  will-change: transform, background-position;
+}
+
+/* WALK ACTIVE class toggles both motion and sprite animation */
+.walk-active .explorer-sprite {
+  /* sprite walking cycle: steps(N) where N = number of frames horizontally in your sprite */
+  animation: sprite-walk 0.72s steps(9) infinite; /* change frames count to your sprite frames */
+}
+
+/* use offset-path to follow the same SVG path (must match the <path> d) */
+.walk-active {
+  offset-path: path("M 110 420 C 260 300, 300 200, 460 160 S 640 220, 740 180 S 860 240, 920 150");
+  offset-rotate: 0deg; /* or 'auto' if your sprite should face direction */
+  animation: walk-along linear forwards;
+  animation-duration: 12s; /* matches totalDuration in JS */
+  animation-fill-mode: forwards;
+}
+
+/* define the motion; using keyframes to progress along path via offset-distance */
+@keyframes walk-along {
+  0%   { offset-distance: 0%; }
+  100% { offset-distance: 100%; }
+}
+
+/* sprite frames animation - assumes 9 frames horizontally */
+@keyframes sprite-walk {
+  from { background-position: 0 0; }
+  to   { background-position: -900px 0; } /* 9 * 100px width = 900px */
+}
+
+/* small sparkle at end (optional) - can be toggled by adding .end-spark class to milestone */
+.milestone.glow-strong:after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: -6%;
+  width: 26px; height: 26px;
+  transform: translateX(-50%);
+  border-radius: 50%;
+  box-shadow: 0 0 18px var(--treasure-gold), 0 0 36px var(--treasure-gold-2);
+  animation: sparkle 1s ease-out;
+}
+@keyframes sparkle {
+  0% { transform: translateX(-50%) scale(.6); opacity: 0; }
+  40% { transform: translateX(-50%) scale(1.05); opacity: 1; }
+  100% { transform: translateX(-50%) scale(1); opacity: 1; }
+}
+
+/* small responsive tweaks */
+@media (max-width: 920px) {
+  .milestone { width: 96px; }
+  .milestone img { width: 68px; height: 68px; }
+  .explorer { width: 82px; height: 76px; }
+  .explorer-sprite { width: 82px; height: 76px; }
+}
+
+/* a final note area */
+.legend-note {
+  color: #4a2b00;
+  font-weight: 600;
+  margin-top: 8px;
+}
+

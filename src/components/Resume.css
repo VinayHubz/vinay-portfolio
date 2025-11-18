@@ -1,0 +1,85 @@
+.resume-section {
+  padding: 60px 20px;
+  text-align: center;
+  background: #f5f8ff;
+  min-height: 100vh;
+}
+
+.resume-title {
+  font-size: 32px;
+  font-weight: 700;
+  margin-bottom: 10px;
+  color: #0f172a;
+}
+
+.resume-sub {
+  color: #475569;
+  max-width: 420px;
+  margin: 0 auto 30px;
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+.resume-form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  max-width: 350px;
+  margin: 0 auto;
+}
+
+.resume-form input {
+  padding: 12px;
+  font-size: 15px;
+  border-radius: 8px;
+  border: 1px solid #cbd5e1;
+  outline: none;
+}
+
+.resume-form input:focus {
+  border-color: #3b82f6;
+  box-shadow: 0px 0px 3px rgba(59, 130, 246, 0.4);
+}
+
+.resume-button {
+  background: #1277ff;
+  color: white;
+  padding: 12px;
+  font-size: 16px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.resume-button:hover {
+  background: #0a5fd6;
+}
+
+.success-msg {
+  margin-top: 18px;
+  color: green;
+  font-weight: 600;
+}
+
+.skip-text {
+  margin-top: 20px;
+  font-size: 14px;
+  color: #475569;
+}
+
+.skip-btn {
+  margin-top: 10px;
+  padding: 10px 16px;
+  background: #1e293b;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.skip-btn:hover {
+  background: #334155;
+}
+

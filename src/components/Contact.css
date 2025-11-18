@@ -1,0 +1,61 @@
+.contact-section {
+  padding: 80px 20px;
+  background: #f5f8ff;
+  text-align: center;
+}
+
+.contact-title {
+  font-size: 36px;
+  font-weight: 700;
+  margin-bottom: 14px;
+  color: #0d0d0d;
+}
+
+.contact-subtitle {
+  color: #4a4a4a;
+  font-size: 18px;
+  max-width: 650px;
+  margin: 0 auto 40px auto;
+}
+
+.contact-list {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+  width: 100%;
+  max-width: 550px;
+  margin: 0 auto;
+}
+
+.contact-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+}
+
+.contact-icon {
+  width: 26px;
+  height: 26px;
+}
+
+.contact-text {
+  font-size: 18px;
+  color: #111;
+  text-decoration: none;
+}
+
+.contact-text:hover {
+  text-decoration: underline;
+}
+
+.relocate-badge {
+  background: #dcecff;
+  color: #0066ff;
+  font-size: 14px;
+  padding: 4px 12px;
+  border-radius: 8px;
+  margin-left: 10px;
+  font-weight: 600;
+}
+
