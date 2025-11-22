@@ -29,11 +29,11 @@ function Contact() {
         <div className="contact-row">
           <img src={LinkedInIcon} alt="linkedin icon" className="contact-icon" />
           <a
-            href="YOUR_LINKEDIN_URL"
+            href="https://www.linkedin.com/in/vinay--dataengineer/"
             target="_blank"
             className="contact-text"
           >
-            linkedin.com/in/vinay-dataengineer
+            Linkedin.com/in/vinay-DataEngineer
           </a>
         </div>
 

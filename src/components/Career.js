@@ -24,27 +24,27 @@ export default function Career() {
       key: "grad",
       title: "BSc Computer Science",
       year: "2017 — 2020",
-      desc: "Graduated with strong fundamentals in CS, algorithms and programming.",
+      desc: "Graduated with strong fundamentals in CS & programming.",
       img: gradImg
     },
     {
       key: "sql",
       title: "SQL Developer",
-      year: "2020 — 2021",
+      year: "2022 — 2023",
       desc: "Worked on ETL queries, optimizations and database schema design.",
       img: sqlImg
     },
     {
       key: "python",
       title: "Python Developer",
-      year: "2021 — 2022",
+      year: "2023 — 2024",
       desc: "Automated pipelines and data workflows using Python and Pandas.",
       img: pythonImg
     },
     {
       key: "dataeng",
       title: "Data Engineer",
-      year: "2022 — 2024",
+      year: "2024 — 2025",
       desc: "Built cloud pipelines, Delta Lake workflows and scalable ETL processes.",
       img: dataengImg
     },
