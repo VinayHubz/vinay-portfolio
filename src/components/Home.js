@@ -1,4 +1,3 @@
-// src/components/Home.js
 import React, { useState } from "react";
 import "./Home.css";
 import ProfileImg from "../assets/profile.png";
@@ -28,7 +27,7 @@ export default function Home({ openFeedback }) {
         {/* Gradient Role */}
         <h2 className="home-role">Data Engineer & Python Developer</h2>
 
-        {/* Black bold Bio */}
+        {/* Bio */}
         <p className="home-bio">
           I build scalable data systems on Azure, specializing in ETL pipelines,
           automation, and data-driven decision making.

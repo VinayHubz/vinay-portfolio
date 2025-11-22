@@ -1,5 +1,5 @@
 // src/App.js
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
 import Navbar from "./components/Navbar";
@@ -9,8 +9,44 @@ import Projects from "./components/Projects";
 import Contact from "./components/Contact";
 import Resume from "./components/Resume";
 import Career from "./components/Career";
-import FeedbackModal from "./components/FeedbackModal"; // external component
+import FeedbackModal from "./components/FeedbackModal";
 import "./App.css";
+
+// ❤️ Firebase imports
+import { db } from "./firebase";
+import { addDoc, collection, serverTimestamp } from "firebase/firestore";
+
+// 📍 Visitor Tracking Function
+function TrackVisitor() {
+  useEffect(() => {
+    const trackLocation = async () => {
+      try {
+        // Fetch location using IP API
+        const res = await fetch("https://ipapi.co/json/");
+        const data = await res.json();
+
+        await addDoc(collection(db, "visitors"), {
+          ip: data.ip || "",
+          city: data.city || "",
+          region: data.region || "",
+          country: data.country_name || "",
+          coordinates: `${data.latitude}, ${data.longitude}`,
+          location: `${data.city}, ${data.region}`,
+          timezone: data.timezone || "",
+          org: data.org || "",
+          postal: data.postal || "",
+          timestamp: serverTimestamp(),
+        });
+      } catch (error) {
+        console.log("Error tracking visitor:", error);
+      }
+    };
+
+    trackLocation();
+  }, []);
+
+  return null;
+}
 
 function App() {
   const [active, setActive] = useState("home");
@@ -37,6 +73,9 @@ function App() {
 
   return (
     <div className="app-root">
+      {/* 👇 Visitor Tracking Component */}
+      <TrackVisitor />
+
       <Navbar active={active} setActive={setActive} />
 
       <main className="main-content">

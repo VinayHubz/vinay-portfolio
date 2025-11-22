@@ -9,7 +9,7 @@
   flex-direction: column;
   align-items: center;
   text-align: center;
-  background: #ffffff; /* or transparent to inherit parent */
+  background: #ffffff;
 }
 
 .resume-title {
@@ -71,7 +71,7 @@
   cursor: not-allowed;
 }
 
-/* simple spinner */
+/* Loader Spinner */
 .spinner {
   width: 18px;
   height: 18px;
@@ -86,20 +86,24 @@
   to { transform: rotate(360deg); }
 }
 
-/* Messages */
-.success-msg {
-  color: #0b7b2f;
-  margin-top: 8px;
+/* Success and Error Messages */
+.resume-msg {
+  margin-top: 16px;
+  font-size: 16px;
   font-weight: 600;
 }
 
-.error-msg {
-  color: #b02a2a;
-  margin-top: 8px;
-  font-weight: 600;
+/* SUCCESS → Emerald Green */
+.resume-msg.success {
+  color: #10B981;
 }
 
-/* Skip area */
+/* ERROR → Soft Red */
+.resume-msg.error {
+  color: #EF4444;
+}
+
+/* Skip section */
 .skip-text {
   margin-top: 16px;
   color: #475569;
@@ -114,9 +118,113 @@
   color: #0b1723;
   cursor: pointer;
 }
+/* Confirmation Popup */
+.confirm-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.45);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+
+.confirm-box {
+  background: #ffffff;
+  padding: 22px 26px;
+  border-radius: 14px;
+  width: 90%;
+  max-width: 360px;
+  text-align: center;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.18);
+}
+
+/* Blue text */
+.confirm-box h3 {
+  margin-bottom: 6px;
+  color: #0a5cd1; /* Blue */
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.confirm-box p {
+  color: #0a5cd1; /* Blue text */
+}
+
+.confirm-email {
+  margin: 8px 0 16px;
+  font-weight: 700;
+  color: #0a5cd1; /* Bright blue */
+}
+
+.confirm-actions {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+}
+
+/* YES SEND → Green button */
+.confirm-send {
+  padding: 10px 18px;
+  border-radius: 10px;
+  border: none;
+  background: #10B981; /* emerald green */
+  color: white;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+/* EDIT EMAIL → Neutral grey button */
+.confirm-cancel {
+  padding: 10px 18px;
+  border-radius: 10px;
+  border: 1px solid #d1d5db;
+  background: #f3f4f6;
+  color: #374151; /* dark grey text */
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.confirm-cancel:hover {
+  background: #e5e7eb;
+}
+/* 3D Gradient Contact Button */
+.skip-btn {
+  margin-top: 8px;
+  padding: 12px 22px;
+  border-radius: 12px;
+  
+  /* Gradient background */
+  background: linear-gradient(135deg, #1277ff, #0a5fd6);
+
+  /* Border with subtle contrast */
+  border: 2px solid #0a53c2;
+
+  /* Text styling */
+  color: white;
+  font-weight: 700;
+  font-size: 15px;
+  cursor: pointer;
+
+  /* 3D effect shadow */
+  box-shadow: 0px 5px 0px #083f9c;
+
+  /* Smooth animation */
+  transition: all 0.15s ease-in-out;
+}
+
+/* Pressed effect */
+.skip-btn:active {
+  transform: translateY(4px);
+  box-shadow: 0px 2px 0px #083f9c;
+}
+
 
 @media (max-width: 680px) {
   .resume-form { max-width: 100%; }
   .resume-section { padding: 32px 12px; }
 }
-	
+

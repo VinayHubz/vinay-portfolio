@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import emailjs from "@emailjs/browser";
 import "./Resume.css";
-import { addDoc, collection } from "firebase/firestore";
+import { addDoc, collection, serverTimestamp } from "firebase/firestore";
 import { db } from "../firebase";
 
 function Resume({ setActive }) {
@@ -9,56 +9,94 @@ function Resume({ setActive }) {
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false);
+  const [statusType, setStatusType] = useState("");
+  const [showConfirm, setShowConfirm] = useState(false); // ⭐ NEW
 
-  const showMessage = (msg) => {
+  const showMessage = (msg, type = "success") => {
     setMessage(msg);
-    setTimeout(() => setMessage(""), 4000);
+    setStatusType(type);
+    setTimeout(() => {
+      setMessage("");
+      setStatusType("");
+    }, 4000);
   };
 
-  const handleSubmit = async (e) => {
+  // ⭐ Step 1 — User clicks "Send Resume"
+  const onSubmitClick = (e) => {
     e.preventDefault();
-    setMessage("");
+
+    // strict email format check
+    const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[A-Za-z]{2,}$/;
+
+    if (!emailPattern.test(email.trim())) {
+      showMessage("Invalid email format. Try Again!", "error");
+      return;
+    }
+
+    // open confirm popup
+    setShowConfirm(true);
+  };
+
+  // ⭐ Step 2 — User confirms email in popup
+  const handleSendResume = async () => {
+    setShowConfirm(false); 
     setLoading(true);
 
     let userLocation = {
-      ip: "unknown",
-      city: "unknown",
-      region: "unknown",
-      country: "unknown",
-      coordinates: "unknown",
-      readable_address: "Not available (IP-based lookup only)",
+      ip: "",
+      city: "",
+      region: "",
+      country: "",
+      postal: "",
+      org: "",
+      timezone: "",
+      latitude: "",
+      longitude: "",
+      coordinates: "",
+      readable_address: "",
     };
 
     try {
-      // ★ LOCATION FETCH WITH FALLBACK
+      // fetch location
       try {
-        const loc = await fetch(
-          "https://ipinfo.io/json?token=79d0a2c5727b74"
-        ).then((res) => res.json());
+        const res = await fetch("https://ipapi.co/json/");
+        const data = await res.json();
 
         userLocation = {
-          ip: loc?.ip || "unknown",
-          city: loc?.city || "unknown",
-          region: loc?.region || "unknown",
-          country: loc?.country || "unknown",
-          coordinates: loc?.loc || "unknown",
-          readable_address:
-            `${loc?.city || ""}, ${loc?.region || ""}, ${loc?.country || ""}`,
+          ip: data.ip || "",
+          city: data.city || "",
+          region: data.region || "",
+          country: data.country_name || "",
+          postal: data.postal || "",
+          org: data.org || "",
+          timezone: data.timezone || "",
+          latitude: data.latitude || "",
+          longitude: data.longitude || "",
+          coordinates: `${data.latitude}, ${data.longitude}`,
+          readable_address: `${data.city}, ${data.region}, ${data.country_name}`,
         };
-      } catch {
-        console.warn("Location lookup failed");
-      }
+      } catch {}
 
-      // ★ SAVE TO FIRESTORE
+      // save in firestore
       await addDoc(collection(db, "resumeRequests"), {
         name,
         email,
-        location: userLocation,
-        timestamp: new Date().toISOString(),
+        city: userLocation.city,
+        region: userLocation.region,
+        country: userLocation.country,
+        ip: userLocation.ip,
+        postal: userLocation.postal,
+        org: userLocation.org,
+        timezone: userLocation.timezone,
+        coordinates: userLocation.coordinates,
+        latitude: userLocation.latitude,
+        longitude: userLocation.longitude,
+        readable_address: userLocation.readable_address,
+        timestamp: serverTimestamp(),
       });
 
-      // ★ EMAILJS
-      await emailjs.send(
+      // send via EmailJS
+      const emailResult = await emailjs.send(
         "service_1h738n5",
         "template_wc9tkqg",
         {
@@ -70,13 +108,15 @@ function Resume({ setActive }) {
         "LACorTHlpdAlSm0dS"
       );
 
-      showMessage("Resume sent successfully!");
-      setName("");
-      setEmail("");
-
+      if (emailResult.status === 200 && emailResult.text === "OK") {
+        showMessage("Resume sent successfully!", "success");
+        setName("");
+        setEmail("");
+      } else {
+        showMessage("EmailJS Error! Try Again", "error");
+      }
     } catch (err) {
-      console.error("ERROR:", err);
-      showMessage("Something went wrong while sending the resume.");
+      showMessage("EmailJS Error! Try Again", "error");
     }
 
     setLoading(false);
@@ -87,7 +127,7 @@ function Resume({ setActive }) {
       <h1 className="resume-title">Download My Resume</h1>
       <p className="resume-sub">Enter your details to receive my resume.</p>
 
-      <form className="resume-form" onSubmit={handleSubmit}>
+      <form className="resume-form" onSubmit={onSubmitClick}>
         <input
           type="text"
           placeholder="Enter your name"
@@ -109,7 +149,29 @@ function Resume({ setActive }) {
         </button>
       </form>
 
-      {message && <p className="resume-msg">{message}</p>}
+      {message && (
+        <p className={`resume-msg ${statusType}`}>{message}</p>
+      )}
+
+      {/* ⭐ CONFIRMATION POPUP */}
+      {showConfirm && (
+        <div className="confirm-overlay">
+          <div className="confirm-box">
+            <h3>Confirm Email</h3>
+            <p>You will receive your resume at:</p>
+            <p className="confirm-email">{email}</p>
+
+            <div className="confirm-actions">
+              <button className="confirm-send" onClick={handleSendResume}>
+                Yes, Send
+              </button>
+              <button className="confirm-cancel" onClick={() => setShowConfirm(false)}>
+                Edit Email
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
 
       <p className="skip-text">Prefer direct contact?</p>
       <button className="skip-btn" onClick={() => setActive("contact")}>
