@@ -1,14 +1,14 @@
 import React, { useState } from "react";
 import "./Skills.css";
 
-// Import logos
+/* IMAGES */
 import pythonLogo from "../assets/logos/python.png";
 import azureLogo from "../assets/logos/azure.png";
 import dataengLogo from "../assets/logos/dataeng.png";
 import sqlLogo from "../assets/logos/sql.png";
 import databricksLogo from "../assets/logos/databricks.png";
 
-// Import certificates
+/* CERTIFICATES */
 import pythonCert from "../assets/python-cert.png";
 import azureCert from "../assets/azure-cert.png";
 import dataengCert from "../assets/dataeng-cert.png";
@@ -23,31 +23,31 @@ function Skills() {
       name: "Python",
       logo: pythonLogo,
       cert: pythonCert,
-      description: "ETL, automation, pandas, APIs."
+      description: "ETL, Automation, Pandas, API scripting."
     },
     {
       name: "Azure",
       logo: azureLogo,
       cert: azureCert,
-      description: "ADF, Synapse, SHIR, Storage."
+      description: "ADF, Synapse, SHIR, Storage, Logic Apps."
     },
     {
       name: "Data Engineering",
       logo: dataengLogo,
       cert: dataengCert,
-      description: "Pipelines, modeling, ETL, Delta."
+      description: "Pipelines, Modeling, ETL/ELT, Delta Lakes."
     },
     {
       name: "SQL",
       logo: sqlLogo,
       cert: sqlCert,
-      description: "Joins, CTE, windows, tuning."
+      description: "Joins, CTEs, Window functions, tuning."
     },
     {
       name: "Databricks",
       logo: databricksLogo,
       cert: databricksCert,
-      description: "PySpark, Delta, notebooks."
+      description: "PySpark, Delta, Workspace development."
     }
   ];
 
@@ -69,16 +69,22 @@ function Skills() {
           <div className="flip-card" key={index}>
             <div className="flip-card-inner">
 
-              {/* FRONT SIDE */}
+              {/* ---------- FRONT ---------- */}
               <div className="flip-card-front">
-                <img src={skill.logo} alt="logo" className="skill-logo" />
-                <h2>{skill.name}</h2>
-                {showDescription && <p className="skill-desc">{skill.description}</p>}
+                <img src={skill.logo} alt={skill.name} />
+
+                <div className="overlay-text">
+                  <div className="overlay-title">{skill.name}</div>
+
+                  {showDescription && (
+                    <div className="overlay-desc">{skill.description}</div>
+                  )}
+                </div>
               </div>
 
-              {/* BACK SIDE */}
+              {/* ---------- BACK (CERTIFICATE) ---------- */}
               <div className="flip-card-back">
-                <img src={skill.cert} alt="certificate" />
+                <img src={skill.cert} alt={skill.name + " certificate"} />
               </div>
 
             </div>

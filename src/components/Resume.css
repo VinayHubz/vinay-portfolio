@@ -1,85 +1,122 @@
+/* Resume.module styles - simple, clean and accessible */
+
 .resume-section {
-  padding: 60px 20px;
+  width: 100%;
+  min-height: 80vh;
+  padding: 48px 24px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   text-align: center;
-  background: #f5f8ff;
-  min-height: 100vh;
+  background: #ffffff; /* or transparent to inherit parent */
 }
 
 .resume-title {
-  font-size: 32px;
-  font-weight: 700;
-  margin-bottom: 10px;
-  color: #0f172a;
+  font-size: 28px;
+  margin-bottom: 8px;
+  color: #0b1723;
 }
 
 .resume-sub {
-  color: #475569;
-  max-width: 420px;
-  margin: 0 auto 30px;
-  font-size: 16px;
-  line-height: 1.6;
+  color: #55636f;
+  margin-bottom: 18px;
+  max-width: 720px;
 }
 
+/* Form */
 .resume-form {
+  width: 100%;
+  max-width: 540px;
   display: flex;
   flex-direction: column;
-  gap: 14px;
-  max-width: 350px;
-  margin: 0 auto;
+  gap: 12px;
+  margin-bottom: 12px;
 }
 
-.resume-form input {
-  padding: 12px;
+.resume-form input[type="text"],
+.resume-form input[type="email"] {
+  padding: 12px 14px;
   font-size: 15px;
-  border-radius: 8px;
-  border: 1px solid #cbd5e1;
+  border-radius: 10px;
+  border: 1px solid #e6eefc;
+  background: #fafcff;
   outline: none;
+  transition: box-shadow 0.12s ease, border-color 0.12s ease;
 }
 
 .resume-form input:focus {
-  border-color: #3b82f6;
-  box-shadow: 0px 0px 3px rgba(59, 130, 246, 0.4);
+  box-shadow: 0 6px 18px rgba(18, 119, 255, 0.12);
+  border-color: #cfe4ff;
 }
 
+/* Button */
 .resume-button {
-  background: #1277ff;
-  color: white;
-  padding: 12px;
-  font-size: 16px;
-  border-radius: 8px;
+  margin-top: 6px;
+  padding: 12px 16px;
+  border-radius: 10px;
   border: none;
+  background: linear-gradient(135deg, #1277ff, #0a5fd6);
+  color: #fff;
+  font-weight: 700;
   cursor: pointer;
-  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
 }
 
-.resume-button:hover {
-  background: #0a5fd6;
+.resume-button[disabled] {
+  opacity: 0.7;
+  cursor: not-allowed;
 }
 
+/* simple spinner */
+.spinner {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  box-sizing: border-box;
+  border: 2px solid rgba(255,255,255,0.25);
+  border-top-color: rgba(255,255,255,0.95);
+  animation: spin 0.9s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Messages */
 .success-msg {
-  margin-top: 18px;
-  color: green;
+  color: #0b7b2f;
+  margin-top: 8px;
   font-weight: 600;
 }
 
+.error-msg {
+  color: #b02a2a;
+  margin-top: 8px;
+  font-weight: 600;
+}
+
+/* Skip area */
 .skip-text {
-  margin-top: 20px;
-  font-size: 14px;
+  margin-top: 16px;
   color: #475569;
 }
 
 .skip-btn {
-  margin-top: 10px;
-  padding: 10px 16px;
-  background: #1e293b;
-  color: white;
-  border: none;
-  border-radius: 8px;
+  margin-top: 8px;
+  padding: 10px 14px;
+  border-radius: 10px;
+  background: transparent;
+  border: 1px solid #e6eefc;
+  color: #0b1723;
   cursor: pointer;
-  font-size: 14px;
 }
 
-.skip-btn:hover {
-  background: #334155;
+@media (max-width: 680px) {
+  .resume-form { max-width: 100%; }
+  .resume-section { padding: 32px 12px; }
 }
-
+	

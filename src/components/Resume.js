@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import emailjs from "@emailjs/browser";
 import "./Resume.css";
 import { addDoc, collection } from "firebase/firestore";
-import { db } from "../firebase"; // path must be correct
+import { db } from "../firebase";
 
 function Resume({ setActive }) {
   const [name, setName] = useState("");
@@ -10,96 +10,108 @@ function Resume({ setActive }) {
   const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false);
 
+  const showMessage = (msg) => {
+    setMessage(msg);
+    setTimeout(() => setMessage(""), 4000);
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setMessage("");
     setLoading(true);
 
+    let userLocation = {
+      ip: "unknown",
+      city: "unknown",
+      region: "unknown",
+      country: "unknown",
+      coordinates: "unknown",
+      readable_address: "Not available (IP-based lookup only)",
+    };
+
     try {
-      // --- 1) GET ACCURATE USER LOCATION USING IPINFO.IO ---
-      const locationData = await fetch(
-        "https://ipinfo.io/json?token=YOUR_TOKEN_HERE"
-      )
-        .then((res) => res.json())
-        .catch(() => null);
+      // ★ LOCATION FETCH WITH FALLBACK
+      try {
+        const loc = await fetch(
+          "https://ipinfo.io/json?token=79d0a2c5727b74"
+        ).then((res) => res.json());
 
-      const userLocation = {
-        ip: locationData?.ip || "unknown",
-        city: locationData?.city || "unknown",
-        region: locationData?.region || "unknown",
-        country: locationData?.country || "unknown",
-        coordinates: locationData?.loc || "unknown", // lat,long
-      };
+        userLocation = {
+          ip: loc?.ip || "unknown",
+          city: loc?.city || "unknown",
+          region: loc?.region || "unknown",
+          country: loc?.country || "unknown",
+          coordinates: loc?.loc || "unknown",
+          readable_address:
+            `${loc?.city || ""}, ${loc?.region || ""}, ${loc?.country || ""}`,
+        };
+      } catch {
+        console.warn("Location lookup failed");
+      }
 
-      // --- 2) SAVE USER DETAILS TO FIRESTORE ---
+      // ★ SAVE TO FIRESTORE
       await addDoc(collection(db, "resumeRequests"), {
-        name: name,
-        email: email,
+        name,
+        email,
         location: userLocation,
         timestamp: new Date().toISOString(),
       });
 
-      console.log("Saved to Firestore");
-
-      // --- 3) SEND RESUME USING EMAILJS ---
-      const templateParams = {
-        from_name: name,
-        to_email: email,
-        resume_link:
-          "https://raw.githubusercontent.com/username/portfolio-resume/main/resume.pdf",
-      };
-
+      // ★ EMAILJS
       await emailjs.send(
         "service_1h738n5",
         "template_wc9tkqg",
-        templateParams,
+        {
+          from_name: name,
+          to_email: email,
+          resume_link:
+            "https://raw.githubusercontent.com/vinayhubz/portfolio-resume/main/resume.pdf",
+        },
         "LACorTHlpdAlSm0dS"
       );
 
-      setMessage("Resume sent successfully!");
-    } catch (error) {
-      console.error("Error:", error);
-      setMessage("Something went wrong. Please try again.");
-    } finally {
-      setLoading(false);
+      showMessage("Resume sent successfully!");
       setName("");
       setEmail("");
+
+    } catch (err) {
+      console.error("ERROR:", err);
+      showMessage("Something went wrong while sending the resume.");
     }
+
+    setLoading(false);
   };
 
   return (
     <div className="resume-section">
       <h1 className="resume-title">Download My Resume</h1>
-      <p className="resume-sub">
-        Enter your details to receive my resume directly by email.
-      </p>
+      <p className="resume-sub">Enter your details to receive my resume.</p>
 
       <form className="resume-form" onSubmit={handleSubmit}>
         <input
           type="text"
           placeholder="Enter your name"
-          value={name}
           required
+          value={name}
           onChange={(e) => setName(e.target.value)}
         />
 
         <input
           type="email"
           placeholder="Enter your email"
-          value={email}
           required
+          value={email}
           onChange={(e) => setEmail(e.target.value)}
         />
 
-        <button type="submit" className="resume-button" disabled={loading}>
+        <button className="resume-button" disabled={loading}>
           {loading ? "Sending..." : "Send Resume"}
         </button>
       </form>
 
-      {message && <p className="success-msg">{message}</p>}
+      {message && <p className="resume-msg">{message}</p>}
 
-      <p className="skip-text">Don't want to enter details?</p>
-
+      <p className="skip-text">Prefer direct contact?</p>
       <button className="skip-btn" onClick={() => setActive("contact")}>
         Contact Me Instead
       </button>

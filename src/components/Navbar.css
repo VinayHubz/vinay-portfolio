@@ -1,7 +1,8 @@
+/* SIDEBAR */
 .sidebar {
-  width: 240px;                 /* FIXED WIDTH */
+  width: 240px;
   height: 100vh;
-  background: #0a2a43;          /* Navy Blue */
+  background: #0a2a43;
   padding: 25px 20px;
   position: fixed;
   left: 0;
@@ -9,47 +10,62 @@
   overflow-y: auto;
   display: flex;
   flex-direction: column;
-  gap: 18px;
 }
 
+/* Title */
 .sidebar-title {
-  font-size: 24px;
+  font-size: 22px;
   font-weight: 700;
   color: white;
-  margin-bottom: 20px;
+  margin-bottom: 24px;
   text-align: center;
 }
 
+/* Menu container */
 .sidebar-menu {
   list-style: none;
   padding: 0;
   margin: 0;
 }
 
+/* MENU ITEMS — NORMAL */
 .sidebar-menu li {
   display: flex;
   align-items: center;
   gap: 12px;
-  font-size: 18px;
+
+  font-size: 16px;       /* reduced from 18 */
   font-weight: 500;
-  padding: 14px 12px;
-  border-radius: 12px;
+
+  padding: 10px 12px;    /* reduced from 14px → FIXES BIG SIZE */
+  border-radius: 10px;
+
   color: #dbeafe;
   cursor: pointer;
-  transition: 0.25s ease;
+
+  transition: background 0.25s ease, transform 0.15s ease;
 }
 
+/* ICON SIZE */
 .sidebar-menu li img {
-  width: 26px;
-  height: 26px;
+  width: 24px;
+  height: 24px;
 }
 
+/* HOVER (clean + small) */
 .sidebar-menu li:hover {
   background: #1e3a8a;
+  transform: scale(1.01);
 }
 
+/* ACTIVE (much smaller now — FIXED) */
 .sidebar-menu li.active {
   background: #2563eb;
-  color: white;
+  color: #ffffff;
+
+  padding: 10px 12px;     /* same as normal → NO SIZE JUMP */
+  border-radius: 10px;
+
+  transform: scale(1.02); /* tiny highlight */
 }
 

@@ -1,3 +1,4 @@
+// src/components/Projects.js
 import React, { useState } from "react";
 import "./Projects.css";
 
@@ -10,26 +11,28 @@ function Projects() {
   const projects = [
     {
       title: "Azure Data Pipeline",
-      description: "Designed an end-to-end data ingestion pipeline using ADF, Storage, and Synapse.",
+      description:
+        "Designed a complete ADF → Storage → Synapse data ingestion and transformation workflow.",
     },
     {
       title: "SQL Data Analysis",
-      description: "Performed advanced SQL analytics using joins, window functions, and CTEs.",
+      description:
+        "Analytics using joins, CTEs, window functions, tuning & performance optimization.",
     },
     {
       title: "Databricks ETL Workflow",
-      description: "Created a PySpark ETL pipeline using Delta Lake and notebook workflows.",
+      description:
+        "PySpark ETL pipeline with Delta Lake, Auto Loader, and workflow scheduling.",
     }
   ];
 
   return (
-    <div className="projects-section">
+    <section className="projects-section">
       <div className="projects-header">
         <h1>Projects</h1>
 
-        {/* Eye Toggle */}
         <button
-          className="project-toggle"
+          className="gradient-btn"
           onClick={() => setShowDescription(!showDescription)}
         >
           {showDescription ? "Hide" : "Show"}
@@ -49,7 +52,7 @@ function Projects() {
           </div>
         ))}
       </div>
-    </div>
+    </section>
   );
 }
 

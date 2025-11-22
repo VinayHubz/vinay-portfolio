@@ -1,22 +1,19 @@
-/* FULL WIDTH SECTION – removes all borders */
+/* MAIN SECTION */
 .skills-section {
-  width: 100vw;
-  min-height: 100vh;
   margin: 0;
-  padding: 60px 20px;
-  background: #0f0f0f;
-  color: white;
-  box-sizing: border-box;
-  overflow-x: hidden;
+  padding: 40px 20px;
+  background: #ffffff;        /* Changed to white */
+  color: black;               /* Text color now black */
+  width: 100%;
 }
 
 /* HEADER */
 .skills-header {
+  width: 100%;
+  margin-bottom: 25px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  max-width: 1400px;
-  margin: 0 auto 40px;
 }
 
 .skills-header h1 {
@@ -24,29 +21,18 @@
   font-weight: bold;
 }
 
-.eye-toggle {
-  background: #333;
-  border: none;
-  padding: 10px 20px;
-  color: white;
-  border-radius: 8px;
-  cursor: pointer;
-  font-size: 15px;
-}
-
-/* GRID – responsive, full-width centered */
+/* GRID */
 .skills-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   gap: 32px;
-  max-width: 1400px;
-  margin: 0 auto;
+  width: 100%;
 }
 
-/* FLIP CARD */
+/* CARD CONTAINER */
 .flip-card {
   width: 100%;
-  height: 280px;
+  height: 330px;
   perspective: 1000px;
   cursor: pointer;
 }
@@ -54,6 +40,7 @@
 .flip-card-inner {
   width: 100%;
   height: 100%;
+  position: relative;
   transition: transform 0.7s ease;
   transform-style: preserve-3d;
 }
@@ -62,61 +49,113 @@
   transform: rotateY(180deg);
 }
 
-/* FRONT & BACK SIDES */
+/* FRONT & BACK BASE */
 .flip-card-front,
 .flip-card-back {
   position: absolute;
+  top: 0;
+  left: 0;
+
   width: 100%;
   height: 100%;
-  backface-visibility: hidden;
-
-  /* FIX white-border illusion → remove contrast */
-  background: #161616;
   border-radius: 16px;
-  padding: 20px;
 
-  /* soft shadow */
-  box-shadow: 0px 4px 18px rgba(0, 0, 0, 0.45);
+  backface-visibility: hidden;
+  overflow: hidden;
+
+  box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.4);
+
+  border: 3px solid #007FFF; /* AZURE BLUE BORDER */
 }
 
-/* FRONT CONTENT */
+/* ---------- FRONT SIDE (IMAGE + TEXT) ---------- */
 .flip-card-front {
+  position: relative;
+}
+
+.flip-card-front img {
+  width: 100%;
+  height: 70%;
+  object-fit: contain;
+  background: white;
+}
+
+/* gradient bottom */
+.flip-card-front::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 40%;
+  background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);
+}
+
+.overlay-text {
+  position: absolute;
+  bottom: 15px;
+  left: 15px;
+  z-index: 10;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  color: white;
 }
 
-.skill-logo {
-  width: 70px;
-  height: 70px;
-  object-fit: contain;
-  margin-bottom: 15px;
+.overlay-title {
+  font-size: 22px;
+  font-weight: 700;
 }
 
-.flip-card-front h2 {
-  font-size: 20px;
-  margin-bottom: 10px;
-}
-
-.skill-desc {
-  color: #c2c2c2;
+.overlay-desc {
   font-size: 14px;
-  text-align: center;
+  color: #d6d6d6;
+  margin-top: 2px;
 }
 
-/* BACK SIDE */
+/* ---------- BACK SIDE (CERTIFICATE) ---------- */
 .flip-card-back {
+  background: #111;
   transform: rotateY(180deg);
+
   display: flex;
-  align-items: center;
   justify-content: center;
+  align-items: center;
+  padding: 10px;
 }
 
 .flip-card-back img {
-  width: 100%;
-  height: 100%;
+  width: 95%;
+  height: 95%;
   object-fit: contain;
-  border-radius: 12px;
+  border-radius: 10px;
+  background: white;
+
+  border: 2px solid #007FFF; /* INNER AZURE BORDER */
+}
+
+/* SHOW BUTTON */
+.eye-toggle {
+  padding: 10px 22px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 15px;
+  font-weight: 600;
+  color: white;
+
+  background: linear-gradient(135deg, #0066ff, #33ccff);
+  box-shadow: 0px 4px 10px rgba(0, 102, 255, 0.35);
+
+  transition: all 0.25s ease;
+}
+
+.eye-toggle:hover {
+  background: linear-gradient(135deg, #0053cc, #2ab8e6);
+  transform: translateY(-2px);
+  box-shadow: 0px 6px 16px rgba(0, 102, 255, 0.45);
+}
+
+.eye-toggle:active {
+  transform: scale(0.96);
 }
 
