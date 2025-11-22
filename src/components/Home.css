@@ -3,7 +3,7 @@
   width: 100%;
   min-height: 100vh;
   padding: 60px 20px;
-  background: linear-gradient(180deg, #0e1a2c, #0a1422 70%);
+  background: linear-gradient(180deg, #071220, #0e1a2c 40%, #0a1422 90%);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -35,14 +35,15 @@
   object-fit: cover;
 }
 
-/* Name */
+/* Name (Azure Blue) */
 .home-name {
   font-size: 38px;
   font-weight: 800;
   margin-top: 10px;
+  color: #1672ff;
 }
 
-/* Gradient Role Text */
+/* Gradient Role */
 .home-role {
   font-size: 20px;
   font-weight: 700;
@@ -52,17 +53,17 @@
   -webkit-text-fill-color: transparent;
 }
 
-/* Bio - BLACK bold */
+/* Bio (Black) */
 .home-bio {
   max-width: 650px;
   margin: 0 auto;
   font-size: 17px;
   line-height: 1.6;
-  color: #ffffff;
+  color: #000000;
   font-weight: 600;
 }
 
-/* Stats container */
+/* Stats */
 .home-stats {
   margin-top: 32px;
   display: flex;
@@ -71,7 +72,6 @@
   gap: 22px;
 }
 
-/* WHITE cards */
 .stat-card {
   width: 170px;
   background: #ffffff;
@@ -83,7 +83,7 @@
   transition: 0.2s ease;
 }
 
-/* Floating-Lift Idle Animation */
+/* Floating animation */
 .float-b {
   animation: floatUpDown 3s ease-in-out infinite;
 }
@@ -94,17 +94,16 @@
   100% { transform: translateY(0px); }
 }
 
-/* Hover lift */
 .stat-card:hover {
   transform: translateY(-12px);
   box-shadow: 0px 14px 30px rgba(0, 140, 255, 0.35);
 }
 
-/* Stat text */
+/* Stat text (Electric Blue) */
 .stat-value {
   font-size: 30px;
   font-weight: 800;
-  color: #0078d4;
+  color: #4daaff;
 }
 
 .stat-label {
@@ -147,7 +146,13 @@
   box-shadow: 0 6px 18px rgba(0,0,0,0.25);
 }
 
-/* Mobile responsive */
+/* PURE BLUE SELECTION (No white highlight) */
+::selection {
+  background: #0b5cd1;
+  color: white;
+}
+
+/* Mobile */
 @media (max-width: 600px) {
   .profile-wrap { width: 120px; height: 120px; }
   .home-name { font-size: 32px; }
