@@ -1,4 +1,4 @@
-/* SIDEBAR */
+/* SIDEBAR MAIN */
 .sidebar {
   width: 240px;
   height: 100vh;
@@ -10,6 +10,8 @@
   overflow-y: auto;
   display: flex;
   flex-direction: column;
+  transition: left 0.3s ease;
+  z-index: 10;
 }
 
 /* Title */
@@ -28,44 +30,102 @@
   margin: 0;
 }
 
-/* MENU ITEMS — NORMAL */
+/* Menu Items */
 .sidebar-menu li {
   display: flex;
   align-items: center;
   gap: 12px;
-
-  font-size: 16px;       /* reduced from 18 */
+  font-size: 16px;
   font-weight: 500;
-
-  padding: 10px 12px;    /* reduced from 14px → FIXES BIG SIZE */
+  padding: 10px 12px;
   border-radius: 10px;
-
   color: #dbeafe;
   cursor: pointer;
-
   transition: background 0.25s ease, transform 0.15s ease;
 }
 
-/* ICON SIZE */
+/* Icon size */
 .sidebar-menu li img {
   width: 24px;
   height: 24px;
 }
 
-/* HOVER (clean + small) */
+/* Hover */
 .sidebar-menu li:hover {
   background: #1e3a8a;
   transform: scale(1.01);
 }
 
-/* ACTIVE (much smaller now — FIXED) */
+/* Active */
 .sidebar-menu li.active {
   background: #2563eb;
   color: #ffffff;
-
-  padding: 10px 12px;     /* same as normal → NO SIZE JUMP */
+  padding: 10px 12px;
   border-radius: 10px;
+  transform: scale(1.02);
+}
 
-  transform: scale(1.02); /* tiny highlight */
+/* ------------------------------- */
+/*       MOBILE RESPONSIVE         */
+/* ------------------------------- */
+
+.mobile-header {
+  display: none;
+}
+
+/* mobile header styles */
+.hamburger {
+  background: none;
+  border: none;
+  font-size: 28px;
+  color: white;
+  cursor: pointer;
+}
+
+.mobile-title {
+  color: white;
+  font-size: 20px;
+  font-weight: 600;
+}
+
+/* Overlay behind sidebar */
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.45);
+  z-index: 8;
+}
+
+/* ------------------------------- */
+/*    MOBILE ≤ 768px SCREEN FIX     */
+/* ------------------------------- */
+
+@media (max-width: 768px) {
+
+  /* Hide sidebar on mobile (off-screen) */
+  .sidebar {
+    left: -260px;
+  }
+
+  /* Show when menu is open */
+  .sidebar.open {
+    left: 0;
+  }
+
+  /* Show top navbar on mobile only */
+  .mobile-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #0a2a43;
+    padding: 14px 18px;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 9;
+  }
 }
 
