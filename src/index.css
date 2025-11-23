@@ -1,28 +1,101 @@
-/* Reset + base */
-* { box-sizing: border-box; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
-html, body, #root { height: 100%; margin: 0; padding: 0; }
-body {
-  font-family: "Poppins", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
-  background: #f8fafc;
-  color: #0f172a;
-  line-height: 1.4;
+/* ---------------------------------------------------------- */
+/* RESET + BASE STYLES                                        */
+/* ---------------------------------------------------------- */
+
+* {
+  box-sizing: border-box;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
-	body, html, #root {
+
+html, body, #root {
+  height: 100%;
   margin: 0;
   padding: 0;
   width: 100%;
   overflow-x: hidden;
-  background: #0f0f0f;
 }
 
+/* Global font */
+body {
+  font-family: "Poppins", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  background: #0f0f0f;
+  color: #ffffff;
+  line-height: 1.4;
+}
 
-/* Remove entire website margins */
+/* Remove automatic margins on html/body */
 html, body {
-  margin: 0;
-  padding: 0;
   background: none;
 }
 
-a { color: inherit; }
-button { font-family: inherit; }
+/* Basic elements */
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  font-family: inherit;
+}
+
+/* ---------------------------------------------------------- */
+/* UNIVERSAL IMAGE FIX (PREVENTS HUGE IMAGES ON MOBILE)       */
+/* ---------------------------------------------------------- */
+
+img {
+  max-width: 100%;     /* Prevents overflow on mobile */
+  height: auto;        /* Maintains aspect ratio */
+  object-fit: contain; /* Prevents distortion */
+  display: block;      /* Removes inline spacing issues */
+}
+
+/* ---------------------------------------------------------- */
+/* MOBILE RESPONSIVE FIXES (DOES NOT AFFECT DESKTOP)          */
+/* ---------------------------------------------------------- */
+
+@media (max-width: 768px) {
+
+  /* Prevent unwanted scroll on mobile */
+  html, body, #root {
+    overflow-x: hidden !important;
+    width: 100%;
+  }
+
+  /* Global padding reduction for mobile */
+  .section,
+  .container {
+    padding: 12px !important;
+  }
+
+  /* Responsive typography */
+  h1 {
+    font-size: 26px;
+  }
+  h2 {
+    font-size: 22px;
+  }
+  h3 {
+    font-size: 18px;
+  }
+
+  /* Make any element fit inside screen */
+  * {
+    max-width: 100% !important;
+  }
+
+  /* HERO SPECIFIC TUNING (optional, safe even if unused) */
+  .hero-img {
+    max-width: 70%;
+    margin: 0 auto;
+  }
+
+  .hero-text {
+    text-align: center;
+  }
+}
+
+/* ---------------------------------------------------------- */
+/* END OF FILE                                                */
+/* ---------------------------------------------------------- */
 
