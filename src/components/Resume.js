@@ -10,7 +10,7 @@ function Resume({ setActive }) {
   const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false);
   const [statusType, setStatusType] = useState("");
-  const [showConfirm, setShowConfirm] = useState(false); // ⭐ NEW
+  const [showConfirm, setShowConfirm] = useState(false);
 
   const showMessage = (msg, type = "success") => {
     setMessage(msg);
@@ -21,25 +21,22 @@ function Resume({ setActive }) {
     }, 4000);
   };
 
-  // ⭐ Step 1 — User clicks "Send Resume"
   const onSubmitClick = (e) => {
     e.preventDefault();
 
-    // strict email format check
-    const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[A-Za-z]{2,}$/;
+    const emailPattern =
+      /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[A-Za-z]{2,}$/;
 
     if (!emailPattern.test(email.trim())) {
       showMessage("Invalid email format. Try Again!", "error");
       return;
     }
 
-    // open confirm popup
     setShowConfirm(true);
   };
 
-  // ⭐ Step 2 — User confirms email in popup
   const handleSendResume = async () => {
-    setShowConfirm(false); 
+    setShowConfirm(false);
     setLoading(true);
 
     let userLocation = {
@@ -57,7 +54,6 @@ function Resume({ setActive }) {
     };
 
     try {
-      // fetch location
       try {
         const res = await fetch("https://ipapi.co/json/");
         const data = await res.json();
@@ -77,7 +73,6 @@ function Resume({ setActive }) {
         };
       } catch {}
 
-      // save in firestore
       await addDoc(collection(db, "resumeRequests"), {
         name,
         email,
@@ -95,7 +90,6 @@ function Resume({ setActive }) {
         timestamp: serverTimestamp(),
       });
 
-      // send via EmailJS
       const emailResult = await emailjs.send(
         "service_1h738n5",
         "template_wc9tkqg",
@@ -153,7 +147,6 @@ function Resume({ setActive }) {
         <p className={`resume-msg ${statusType}`}>{message}</p>
       )}
 
-      {/* ⭐ CONFIRMATION POPUP */}
       {showConfirm && (
         <div className="confirm-overlay">
           <div className="confirm-box">
@@ -165,7 +158,10 @@ function Resume({ setActive }) {
               <button className="confirm-send" onClick={handleSendResume}>
                 Yes, Send
               </button>
-              <button className="confirm-cancel" onClick={() => setShowConfirm(false)}>
+              <button
+                className="confirm-cancel"
+                onClick={() => setShowConfirm(false)}
+              >
                 Edit Email
               </button>
             </div>

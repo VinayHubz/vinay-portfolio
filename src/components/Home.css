@@ -9,12 +9,39 @@
   align-items: center;
   color: #fff;
   box-sizing: border-box;
+
+  /* Needed for top-right button */
+  position: relative;
 }
 
 .home-inner {
   text-align: center;
   max-width: 900px;
   width: 100%;
+}
+
+/* TOP-RIGHT RESUME BUTTON */
+.resume-btn-container {
+  position: absolute;
+  top: 20px;
+  right: 30px;
+  z-index: 1000;
+}
+
+.download-resume-btn {
+  background: #007bff;
+  color: white;
+  padding: 6px 14px;
+  font-size: 14px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: 0.3s ease;
+}
+
+.download-resume-btn:hover {
+  background: #005fcc;
 }
 
 /* Profile */
@@ -53,7 +80,7 @@
   -webkit-text-fill-color: transparent;
 }
 
-/* Bio (Black) */
+/* Bio */
 .home-bio {
   max-width: 650px;
   margin: 0 auto;
@@ -83,7 +110,7 @@
   transition: 0.2s ease;
 }
 
-/* Floating animation */
+/* Floating Animation */
 .float-b {
   animation: floatUpDown 3s ease-in-out infinite;
 }
@@ -99,7 +126,7 @@
   box-shadow: 0px 14px 30px rgba(0, 140, 255, 0.35);
 }
 
-/* Stat text (Electric Blue) */
+/* Stat Text */
 .stat-value {
   font-size: 30px;
   font-weight: 800;
@@ -144,18 +171,5 @@
   color: #fff;
   border-radius: 10px;
   box-shadow: 0 6px 18px rgba(0,0,0,0.25);
-}
-
-/* PURE BLUE SELECTION (No white highlight) */
-::selection {
-  background: #0b5cd1;
-  color: white;
-}
-
-/* Mobile */
-@media (max-width: 600px) {
-  .profile-wrap { width: 120px; height: 120px; }
-  .home-name { font-size: 32px; }
-  .stat-card { width: 150px; }
 }
 

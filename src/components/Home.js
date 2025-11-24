@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import "./Home.css";
 import ProfileImg from "../assets/profile.png";
 
-export default function Home({ openFeedback }) {
+export default function Home({ openFeedback, setActive }) {
   const [showTip, setShowTip] = useState(false);
 
   const stats = [
@@ -14,26 +14,30 @@ export default function Home({ openFeedback }) {
 
   return (
     <section className="home-root">
-      <div className="home-inner">
 
-        {/* Profile */}
+      {/* TOP-RIGHT BUTTON */}
+      <div className="resume-btn-container">
+        <button
+          className="download-resume-btn"
+          onClick={() => setActive("resume")}
+        >
+          Resume
+        </button>
+      </div>
+
+      <div className="home-inner">
         <div className="profile-wrap">
           <img src={ProfileImg} alt="Vinay" className="profile-img" />
         </div>
 
-        {/* Name */}
         <h1 className="home-name">Vinay</h1>
-
-        {/* Gradient Role */}
         <h2 className="home-role">Data Engineer & Python Developer</h2>
 
-        {/* Bio */}
         <p className="home-bio">
           I build scalable data systems on Azure, specializing in ETL pipelines,
           automation, and data-driven decision making.
         </p>
 
-        {/* Stats */}
         <div className="home-stats">
           {stats.map((s, i) => (
             <div className="stat-card float-b" key={i}>
@@ -44,7 +48,6 @@ export default function Home({ openFeedback }) {
         </div>
       </div>
 
-      {/* Floating Feedback Button */}
       <button
         className="feedback-btn"
         onClick={() => openFeedback ? openFeedback() : setShowTip(true)}

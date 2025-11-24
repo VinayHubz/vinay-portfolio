@@ -2,11 +2,11 @@ import React, { useState } from "react";
 import "./Navbar.css";
 
 const Navbar = ({ active, setActive }) => {
-  const [open, setOpen] = useState(false); // mobile menu open/close
+  const [open, setOpen] = useState(false);
 
   const handleMenuClick = (section) => {
     setActive(section);
-    setOpen(false); // close drawer on click
+    setOpen(false);
   };
 
   return (
@@ -23,7 +23,7 @@ const Navbar = ({ active, setActive }) => {
         <h2 className="mobile-title">Portfolio</h2>
       </div>
 
-      {/* OVERLAY (visible only when menu open) */}
+      {/* OVERLAY */}
       {open && <div className="overlay" onClick={() => setOpen(false)} />}
 
       {/* SIDEBAR */}
@@ -31,7 +31,6 @@ const Navbar = ({ active, setActive }) => {
         <h2 className="sidebar-title">Portfolio</h2>
 
         <ul className="sidebar-menu">
-
           <li
             className={active === "home" ? "active" : ""}
             onClick={() => handleMenuClick("home")}
@@ -65,20 +64,11 @@ const Navbar = ({ active, setActive }) => {
           </li>
 
           <li
-            className={active === "resume" ? "active" : ""}
-            onClick={() => handleMenuClick("resume")}
-          >
-            <img src={require("../assets/resume.png")} alt="Resume" />
-            <span>Resume</span>
-          </li>
-
-          <li
             className={active === "career" ? "active" : ""}
             onClick={() => handleMenuClick("career")}
           >
             🗺️ Career
           </li>
-
         </ul>
       </div>
     </>

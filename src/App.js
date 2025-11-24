@@ -21,7 +21,6 @@ function TrackVisitor() {
   useEffect(() => {
     const trackLocation = async () => {
       try {
-        // Fetch location using IP API
         const res = await fetch("https://ipapi.co/json/");
         const data = await res.json();
 
@@ -55,25 +54,40 @@ function App() {
   const renderSection = () => {
     switch (active) {
       case "home":
-        return <Home openFeedback={() => setFeedbackOpen(true)} />;
+        return (
+          <Home
+            openFeedback={() => setFeedbackOpen(true)}
+            setActive={setActive}   // ✅ IMPORTANT FIX
+          />
+        );
+
       case "skills":
         return <Skills />;
+
       case "projects":
         return <Projects />;
+
       case "contact":
         return <Contact />;
+
       case "resume":
         return <Resume setActive={setActive} />;
+
       case "career":
         return <Career />;
+
       default:
-        return <Home openFeedback={() => setFeedbackOpen(true)} />;
+        return (
+          <Home
+            openFeedback={() => setFeedbackOpen(true)}
+            setActive={setActive}   // also here
+          />
+        );
     }
   };
 
   return (
     <div className="app-root">
-      {/* 👇 Visitor Tracking Component */}
       <TrackVisitor />
 
       <Navbar active={active} setActive={setActive} />
@@ -93,7 +107,10 @@ function App() {
         </AnimatePresence>
       </main>
 
-      <FeedbackModal open={feedbackOpen} onClose={() => setFeedbackOpen(false)} />
+      <FeedbackModal
+        open={feedbackOpen}
+        onClose={() => setFeedbackOpen(false)}
+      />
     </div>
   );
 }
